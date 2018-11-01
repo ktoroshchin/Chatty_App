@@ -3,30 +3,28 @@ import React, {Component} from 'react';
 
 class ChatBar extends Component {
 
-  inputAreaMessage(event) {
-    const textArea = event.target;
+inputAreaMessage(event) {
+  const textArea = event.target;
 
-    if(event.charCode == 13 && textArea.value !==""){
-      const newMessage = textArea.value
-      this.props.sendMessage(newMessage)
-      textArea.value = "";
-    }
+  if(event.charCode == 13 && textArea.value !==""){
+    const newMessage = textArea.value
+    this.props.sendMessage(newMessage)
+    textArea.value = "";
   }
+}
 
   onNameChange(event) {
     const textArea = event.target;
 
     if(event.charCode == 13 && textArea.value !==""){
-      console.log(event.charCode);
       const newName = textArea.value
-      console.log(newName);
       this.props.nameChange(newName)
       textArea.value = "";
     }
   }
 
   render() {
-    const  { sendMessage, currentUser, messages } = this.props;
+    const  { nameChange, sendMessage, currentUser, messages } = this.props;
 
     return (
       <footer className="chatbar">

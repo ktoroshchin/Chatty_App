@@ -9,21 +9,22 @@ class App extends Component {
     super(props);
     this.socket = new WebSocket('ws://localhost:3001');
     this.state = {
-      currentUser: "",
-      messages: []
+      currentUser: "Anonymous",
+      messages: [],
+      onlineUsers: 0
     };
   }
 
 
-  nameChange = (name) => {
-    this.setState({ currentUser: name}, () => console.log(this.state))
-  }
+nameChange = (name) => {
+  let userName = { userName: name, content: `${this.state.currentUser} has changed name to ${name}`, type: "postNotification" }
+  this.setState({ currentUser: name})
+  this.socket.send(JSON.stringify(userName))
+}
 
  sendMessage = (message) => {
-  let newMessage= {username: this.state.currentUser, content: message, key: uuidv4(), date: moment(Date.now()).calendar() };
-  console.log(newMessage);
+  let newMessage= {username: this.state.currentUser, content: message, type: "postMessage", date: moment(Date.now()).calendar() };
   const messages = [...this.state.messages, newMessage]
-  this.setState({ messages: [...this.state.messages, newMessage] })
   this.socket.send(JSON.stringify(newMessage))
 }
 
@@ -31,9 +32,22 @@ class App extends Component {
 
 componentDidMount() {
   this.socket.onmessage = (message) => {
-    const incomingMessage = JSON.parse(message.data);
+    console.log(message);
+    let incomingMessage = JSON.parse(message.data);
+    console.log(incomingMessage);
 
-    this.setState({messages: [ ...this.state.messages, incomingMessage ]})
+    switch(incomingMessage.type) {
+      case "incomingMessage":
+        this.setState({messages: [ ...this.state.messages, incomingMessage ]}, () => console.log(this.state))
+        break;
+        case "incomingNotification":
+        this.setState({messages: [ ...this.state.messages, incomingMessage ]})
+        break;
+      default:
+      throw new Error("Unknown event type " + incomingMessage.type)
+    }
+
+
   }
 };
 
@@ -43,6 +57,7 @@ componentDidMount() {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
+          <p className="users-online">{this.state.onlineUsers} users online</p>
         </nav>
         <MessageList messages={ messages }/>
         <ChatBar nameChange={this.nameChange} sendMessage={ this.sendMessage } currentUser={ currentUser }/>

@@ -80,6 +80,11 @@ body {
   position: fixed;
   right: 0;
   top: 0;
+
+  .users-online{
+    display: flex;
+    justify-content: flex-end; 
+  }
 }
 
 .navbar-brand {
