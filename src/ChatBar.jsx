@@ -13,17 +13,24 @@ class ChatBar extends Component {
     }
   }
 
+  onNameChange(event) {
+    const textArea = event.target;
+
+    if(event.charCode == 13 && textArea.value !==""){
+      console.log(event.charCode);
+      const newName = textArea.value
+      console.log(newName);
+      this.props.nameChange(newName)
+      textArea.value = "";
+    }
+  }
+
   render() {
     const  { sendMessage, currentUser, messages } = this.props;
-    // const inputAreaName = event => {
-    //   const textArea = event.target
-    // }
-
-
 
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" defaultValue={currentUser.name} placeholder="Your Name (Optional)" />
+        <input className="chatbar-username" onKeyPress={this.onNameChange.bind(this)} placeholder="Your Name (Optional)" />
         <input className="chatbar-message"  onKeyPress={this.inputAreaMessage.bind(this)} placeholder="Type a message and hit ENTER" />
       </footer>
     );

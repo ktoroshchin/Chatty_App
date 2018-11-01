@@ -9,18 +9,21 @@ class App extends Component {
     super(props);
     this.socket = new WebSocket('ws://localhost:3001');
     this.state = {
-      currentUser: {name: "Bob"},
+      currentUser: "",
       messages: []
     };
   }
 
 
+  nameChange = (name) => {
+    this.setState({ currentUser: name}, () => console.log(this.state))
+  }
+
  sendMessage = (message) => {
-  let newMessage= {username: this.state.currentUser.name, content: message, key: uuidv4(), date: moment(Date.now()).calendar() };
+  let newMessage= {username: this.state.currentUser, content: message, key: uuidv4(), date: moment(Date.now()).calendar() };
+  console.log(newMessage);
   const messages = [...this.state.messages, newMessage]
-  this.setState({
-    messages: [...this.state.messages, newMessage]
-  })
+  this.setState({ messages: [...this.state.messages, newMessage] })
   this.socket.send(JSON.stringify(newMessage))
 }
 
@@ -42,7 +45,7 @@ componentDidMount() {
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
         <MessageList messages={ messages }/>
-        <ChatBar sendMessage={ this.sendMessage } currentUser={ currentUser }/>
+        <ChatBar nameChange={this.nameChange} sendMessage={ this.sendMessage } currentUser={ currentUser }/>
       </div>
     );
   }
