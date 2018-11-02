@@ -18,10 +18,9 @@ Chatty App allow users to communicate with each other without having to register
 ##Final Product
 
 ### Screenshot 3 users connected
-![Screenshot 3 users online] (https://github.com/ktoroshchin/Chatty_App/blob/master/docs/Three%20users%20connected.png)
+![Screenshot 3 users online](./docs/Three_users_connected.png)
 ### Screenshot users assigned different colors
-!["Screenshot userNames assigned different colors"]
-(https://github.com/ktoroshchin/Chatty_App/blob/master/docs/UserNameColor%20change.png)
+![Screenshot userNames assigned different colors](./docs/UserNameColor_change.png)
 
 
 
