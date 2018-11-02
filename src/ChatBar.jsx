@@ -28,7 +28,7 @@ inputAreaMessage(event) {
 
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" onKeyPress={this.onNameChange.bind(this)} placeholder="Your Name (Optional)" />
+        <input className="chatbar-username" onKeyPress={this.onNameChange.bind(this)} placeholder="Your Name(OPTIONAL) and ENTER" />
         <input className="chatbar-message"  onKeyPress={this.inputAreaMessage.bind(this)} placeholder="Type a message and hit ENTER" />
       </footer>
     );

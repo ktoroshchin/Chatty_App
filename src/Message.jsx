@@ -1,11 +1,8 @@
-
 import React, {Component} from 'react';
-
 
 class Message extends Component {
   render() {
       const { userColor, userName, content, date }     = this.props;
-
 
     return (
       <div className="message">
@@ -16,5 +13,4 @@ class Message extends Component {
       );
     }
   }
-
-  export default Message;
+export default Message;

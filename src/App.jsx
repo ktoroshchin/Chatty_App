@@ -7,7 +7,7 @@ const moment = require('moment');
 class App extends Component {
   constructor(props) {
     super(props);
-    this.socket = new WebSocket('ws://10.110.110.35:3001');
+    this.socket = new WebSocket('ws://localhost:3001');
     this.state = {
       currentUser: "Anonymous",
       messages: [],
@@ -34,7 +34,6 @@ nameChange = (name) => {
 componentDidMount() {
   this.socket.onmessage = (message) => {
     let incomingMessage = JSON.parse(message.data);
-    console.log(incomingMessage);
 
     switch(incomingMessage.type) {
         case "incomingMessage":
