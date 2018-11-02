@@ -4,11 +4,7 @@ const express = require('express');
 const SocketServer = require('ws').Server;
 const uuidv4 = require('uuid/v4');
 const PORT = 3001;
-// const userColor = require("./userColorChange.js")
-function randomColor () {
-  const colorList = ['#00e4f6','#ca054d','#a83838','#420420', '#0dead0','#e0b0ff','#b7bd1c','#00e4f6','#d072cc','#0dc93f','#aec167','#ef00ef']
-  return colorList[Math.floor(Math.random()*colorList.length)]
-}
+const userColor = require("./helper-function/userColorChange.js")
 // Create a new express server
 const server = express()
    // Make the express server serve static assets (html, javascript, css) from the /public folder
@@ -33,7 +29,7 @@ wss.on('connection', (ws) => {
   }
   wss.broadcast(JSON.stringify(onlineUsers))
 
-  ws.color = randomColor()
+  ws.color = userColor.randomColor()
   let userColor = {
     userColor: ws.color,
     type: "incomingColor"
@@ -50,7 +46,7 @@ wss.on('connection', (ws) => {
     console.log("client disconnected--->");
     wss.broadcast(JSON.stringify(onlineUsers))
   });
-
+// Catching message depending on type and broadcasting to all users
   ws.on('message', function incoming(data) {
    const userMessage = JSON.parse(data)
    userMessage.id = uuidv4()
