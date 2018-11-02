@@ -74,16 +74,19 @@ body {
 .navbar {
   background: $mainColor;
   border-bottom: 1px solid black;
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
   height: 60px;
   left: 0;
   padding: 0 10px;
-  position: fixed;
   right: 0;
   top: 0;
 
   .users-online{
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
+    align-items: center;
   }
 }
 

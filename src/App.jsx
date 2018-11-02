@@ -7,11 +7,12 @@ const moment = require('moment');
 class App extends Component {
   constructor(props) {
     super(props);
-    this.socket = new WebSocket('ws://localhost:3001');
+    this.socket = new WebSocket('ws://10.110.110.35:3001');
     this.state = {
       currentUser: "Anonymous",
       messages: [],
-      onlineUsers: 0
+      onlineUsers: 0,
+      userColor: "",
     };
   }
 
@@ -23,7 +24,7 @@ nameChange = (name) => {
 }
 
  sendMessage = (message) => {
-  let newMessage= {username: this.state.currentUser, content: message, type: "postMessage", date: moment(Date.now()).calendar() };
+  let newMessage= {username: this.state.currentUser, userColor: this.state.userColor, content: message, type: "postMessage", date: moment(Date.now()).calendar() };
   const messages = [...this.state.messages, newMessage]
   this.socket.send(JSON.stringify(newMessage))
 }
@@ -32,22 +33,28 @@ nameChange = (name) => {
 
 componentDidMount() {
   this.socket.onmessage = (message) => {
-    console.log(message);
     let incomingMessage = JSON.parse(message.data);
     console.log(incomingMessage);
 
     switch(incomingMessage.type) {
-      case "incomingMessage":
+        case "incomingMessage":
         this.setState({messages: [ ...this.state.messages, incomingMessage ]}, () => console.log(this.state))
         break;
         case "incomingNotification":
         this.setState({messages: [ ...this.state.messages, incomingMessage ]})
         break;
+        case "incomingOnlineUserInfo":
+        this.setState({onlineUsers: incomingMessage.activeUsers})
+        break;
+        case "updatedNumberOfUsers":
+        this.setState({onlineUsers: incomingMessage.activeUsers})
+        break;
+        case "incomingColor":
+        this.setState({userColor: incomingMessage.userColor})
+        break;
       default:
       throw new Error("Unknown event type " + incomingMessage.type)
     }
-
-
   }
 };
 
