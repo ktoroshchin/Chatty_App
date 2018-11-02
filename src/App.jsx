@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
-const uuidv4 = require('uuid/v4');
 const moment = require('moment');
 
 class App extends Component {
@@ -12,7 +11,7 @@ class App extends Component {
       currentUser: "Anonymous",
       messages: [],
       onlineUsers: 0,
-      userColor: "",
+      userColor: ""
     };
   }
 

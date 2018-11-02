@@ -23,16 +23,43 @@ Chatty App allow users to communicate with each other without having to register
 ![Screenshot userNames assigned different colors](./docs/UserNameColor_change.png)
 
 
+## Dependencies
 
-Install the dependencies and start the server.
+Go to chatty_server folder
+1. Install dependencies using the `npm install`
+2. `npm start` to Run Web Socket Server on
+<http://localhost:3001/>.
+3. Go to <http://localhost:3001/> in your browser.
 
-npm install
-npm start
-open http://localhost:3000
+- express
+- ws
+- uuid
 
-### Dependencies
+Go to root folder
+1. Install the dependencies using `npm install`
+2. `npm start` The app will be served at <http://localhost:3000/>
+3. Go to <http://localhost:3000/> in your browser.
 
-* React
-* Webpack
-* [babel-loader](https://github.com/babel/babel-loader)
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+- babel-core
+- babel-loader
+- babel-preset-es2015
+- babel-preset-react
+- css-loader
+- node-sass
+- sass-loader
+- sockjs-client
+- style-loader
+- webpack
+- webpack-dev-server
+- react
+- react-dom
+- momentjs
+- uuid
+
+
+##Technical Specifications
+Stack:
+
+* Webpack with Babel, JSX, ES6
+* WebSockets using Node package ws on the server-side, and native WebSocket on client side
+* ReactJS

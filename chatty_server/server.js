@@ -4,7 +4,8 @@ const express = require('express');
 const SocketServer = require('ws').Server;
 const uuidv4 = require('uuid/v4');
 const PORT = 3001;
-const userColor = require("./helper-function/userColorChange.js")
+const helpers = require("./helper-function/userColorChange.js")
+console.log(helpers.randomColor());
 // Create a new express server
 const server = express()
    // Make the express server serve static assets (html, javascript, css) from the /public folder
@@ -29,7 +30,7 @@ wss.on('connection', (ws) => {
   }
   wss.broadcast(JSON.stringify(onlineUsers))
 
-  ws.color = userColor.randomColor()
+  ws.color = helpers.randomColor()
   let userColor = {
     userColor: ws.color,
     type: "incomingColor"
